@@ -32,8 +32,8 @@ public class Algorithim {
             notProcessed.remove(currLib);
             libAns.add(currLib);
             days -= currLib.numDays;
-            currentScore += currLib.lastVal;                  // TODO
-            Set<Book> booksOut = currLib.score(days);        // TODO
+            currentScore += currLib.lastVal;
+            Set<Book> booksOut = currLib.score(days);
             booksFromLib.add(booksOut);
 
             // update adjacent nodes
@@ -41,24 +41,25 @@ public class Algorithim {
             Iterator it = notProcessed.iterator();
             while(it.hasNext()){
                 Library i = (Library)it.next();
-                long previousScore = i.lastVal;               // TODO
+                long previousScore = i.lastVal;
                 // intersect and update new score
-                i.remove(booksOut);                      // TODO
-                i.score(days);                           // TODO
-                long newScore = currentScore + i.lastVal;     // TODO
+                i.remove(booksOut);
+                i.score(days);
+                long newScore = currentScore + i.lastVal;
                 // re-sort if score changed
                 if (newScore > previousScore || !pQ.contains(i)) {
                     pQ.remove(i);
-                    i.lastVal = newScore;                     // TODO
+                    i.lastVal = newScore;
                     pQ.offer(i);
                 }
                 else{
-                    i.lastVal = previousScore;                // TODO
+                    i.lastVal = previousScore;
                 }
             }
 
             // get next node
             currLib = pQ.poll();
         }
+
     }
 }

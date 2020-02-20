@@ -22,10 +22,7 @@ public class Book implements Comparable<Book>
 		{
 			return 0;
 		}
-		else if(bookValue<bk.getValue())
-		{
-			return -1;
-		}
+		return -1;
 	}
 	public int getID()
 	{
