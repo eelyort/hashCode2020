@@ -10,12 +10,14 @@ public class Algorithim {
         Set<Library> notProcessed = new HashSet<Library>();
 
         long currentScore = 0;
+
         // in order list of which libraries in order
         LinkedList<Library> libAns = new LinkedList<Library>();
+        LinkedList<Set<Book>> booksFromLib = new LinkedList<Set<Book>>();
 
         // find best
         for (int i = 0; i < libraries.length; i++) {
-            pQ.getScore(days);               // TODO
+            libraries[i].score(days);               // TODO
             pQ.offer(libraries[i]);
             notProcessed.add(libraries[i]);
         }
@@ -30,27 +32,28 @@ public class Algorithim {
             notProcessed.remove(currLib);
             libAns.add(currLib);
             days -= currLib.numDays;
-            currentScore += currLib.score;                  // TODO
-            Set<Book> booksOut = currLib.getScore();        // TODO
+            currentScore += currLib.lastVal;                  // TODO
+            Set<Book> booksOut = currLib.score(days);        // TODO
+            booksFromLib.add(booksOut);
 
             // update adjacent nodes
             // intersect the sets, get new score, and update pQ
             Iterator it = notProcessed.iterator();
             while(it.hasNext()){
                 Library i = (Library)it.next();
-                long previousScore = i.score;               // TODO
+                long previousScore = i.lastVal;               // TODO
                 // intersect and update new score
-                i.intersect(booksOut);                      // TODO
-                i.getScore(days);                           // TODO
-                long newScore = currentScore + i.score;     // TODO
+                i.remove(booksOut);                      // TODO
+                i.score(days);                           // TODO
+                long newScore = currentScore + i.lastVal;     // TODO
                 // re-sort if score changed
                 if (newScore > previousScore || !pQ.contains(i)) {
                     pQ.remove(i);
-                    i.score = newScore;                     // TODO
+                    i.lastVal = newScore;                     // TODO
                     pQ.offer(i);
                 }
                 else{
-                    i.score = previousScore;                // TODO
+                    i.lastVal = previousScore;                // TODO
                 }
             }
 
