@@ -1,4 +1,4 @@
-public class Book implements Comparable<Book>
+public class Book implements Comparable
 {
 	int bookID;
 	int bookValue;
@@ -12,8 +12,9 @@ public class Book implements Comparable<Book>
 		bookID = id;
 		bookValue = val;
 	}
-	public int compareTo(Book bk)
+	public int compareTo(Object obj)
 	{
+		Book bk = (Book)(obj);
 		if(bookValue>bk.getValue())
 		{
 			return 1;

@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 
-public class Library {
+public class Library implements Comparable{
     Set<Book> bookSet = new HashSet<Book>();
     int id;
     int numBooks;
@@ -22,16 +22,16 @@ public class Library {
 
     public void remove(Set<Book> book)
     {
-        Set<Book> temp = book;
-        Iterator<Book> itr = temp.iterator();
+        Iterator<Book> itr = book.iterator();
         while(itr.hasNext())
         {
-            if(bookSet.contains(itr.next()))
+            Book a = (Book)itr.next();
+            if(bookSet.contains(a))
             {
-                bookSet.remove(itr.next());
+                bookSet.remove(a);
             }
         }
-        lastVal = calcTotalValue();
+        lastVal = calcTotalValue(bookSet);
     }
 
     public Set<Book> score(int time)
@@ -40,17 +40,18 @@ public class Library {
         int num = time*booksPerDay;
         PriorityQueue<Book> pq = SetPQ(bookSet);
         Set<Book> ret = new HashSet<Book>();
-        for(int x = 0; x<num; x++)
+        for(int x = 0; x<num && pq.size() > 0; x++)
         {
             ret.add(pq.poll());
         }
-        lastVal = calcTotalValue();
+        
+        lastVal = calcTotalValue(ret);
         return ret;
     }
 
-    public long calcTotalValue()
+    public long calcTotalValue(Set<Book> hi)
     {
-        Iterator<Book> itr = bookSet.iterator();
+        Iterator<Book> itr = hi.iterator();
         long sum = 0;
         while(itr.hasNext())
         {
@@ -81,9 +82,24 @@ public class Library {
         PriorityQueue<Book> pq = new PriorityQueue<Book>();
         while(itr.hasNext())
         {
-            pq.add(itr.next());
+            Book a = itr.next();
+            pq.add(a);
         }
         return pq;
+    }
+
+    public int compareTo(Object obj)
+    {
+        Library bk = (Library)(obj);
+        if(lastVal>bk.lastVal)
+        {
+            return 1;
+        }
+        else if(lastVal==bk.lastVal)
+        {
+            return 0;
+        }
+        return -1;
     }
 
     public int getBooks()

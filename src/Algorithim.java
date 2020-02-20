@@ -7,7 +7,7 @@ public class Algorithim {
         int booktotal, numlib, totalDays, numbooks, signupdays, ship;
 
         // Open file
-        File aex = new File("a_example.txt");
+        File aex = new File("d_tough_choices.txt");
         Scanner input_file = new Scanner(aex);
 
         // Read gen info
@@ -44,7 +44,7 @@ public class Algorithim {
                 int book_id = Integer.parseInt(lib_book_data[j]);
                 y[j] = new Book(book_id, Integer.parseInt(score[book_id]));
             }
-            libraries[i] = new Library(i, x, numbooks, signupdays, ship);
+            libraries[i] = new Library(i, y, numbooks, signupdays, ship);
         }
 
         // Close file
@@ -72,7 +72,7 @@ public class Algorithim {
         // process best
 //        completed.add(currLib);
 //        libAns.add(currLib);
-        while(totalDays > 0){
+        while(totalDays > 0 && currLib != null){
             // process current node
             completed.add(currLib);
             notProcessed.remove(currLib);
@@ -81,6 +81,7 @@ public class Algorithim {
             currentScore += currLib.lastVal;
             Set<Book> booksOut = currLib.score(totalDays);
             booksFromLib.add(booksOut);
+            // System.out.println("HiBye:  " + booksOut.toString());
 
             // update adjacent nodes
             // intersect the sets, get new score, and update pQ
@@ -96,7 +97,7 @@ public class Algorithim {
                 if (newScore > previousScore || !pQ.contains(i)) {
                     pQ.remove(i);
                     i.lastVal = newScore;
-                    pQ.offer(i);
+                    pQ.add(i);
                 }
                 else{
                     i.lastVal = previousScore;
@@ -106,6 +107,64 @@ public class Algorithim {
             // get next node
             currLib = pQ.poll();
         }
+        try{
+            FileWriter writer = new FileWriter("d.txt");
+            // System.out.println("Hi" + booksFromLib.toString());
 
+            // System.out.println("Hi4: " + libAns.size());
+            writer.write(libAns.size() + "\n");
+            // System.out.println("Hi5: " + libAns);
+            Iterator it = libAns.iterator();
+            Iterator it2 = booksFromLib.iterator();
+            while(it.hasNext()){
+                // System.out.println("Reeeee");
+                Library a = (Library)it.next();
+                Set<Book> b = (Set<Book>)it2.next();
+                writer.write(a.id + " " + b.size() + "\n");
+                // write.write(" " + );
+                StringBuilder str = new StringBuilder();
+                Iterator it3 = b.iterator();
+                // System.out.println("Hi" + b.toString());
+                while(it3.hasNext()){
+                    Book z = (Book)it3.next();
+                    // System.out.println(z);
+                    str.append(z.bookID + " ");
+                    // write.write(it3.next().book_id + " ");
+                }
+                if(str.length() > 0){
+
+                writer.write(str.toString().substring(0, str.length()-1) + "\n");
+                }
+                else{
+                    writer.write("\n");
+                }
+            }
+            writer.close();
+        }catch(IOException e){
+            System.out.println("Exception: " + e.toString());
+        }
+    }
+    public void writeAns(String fileName){
+        // try{
+        //     FileWriter writer = new FileWriter(fileName);
+        //     writer.write(libAns.length);
+        //     Iterator it = libAns.iterator();
+        //     Iterator it2 = booksFromLib.iterator();
+        //     while(it.hasNext()){
+        //         Library a = (Library)it.next();
+        //         Set<Book> b = (Set<Book>)it2.next();
+        //         writer.write(a.id + " " + b.size() + "\n");
+        //         // write.write(" " + );
+        //         StringBuilder str = new StringBuilder();
+        //         Iterator it3 = b.iterator();
+        //         while(it3.hasNext()){
+        //             str.append(((Book)it3.next()).book_id + " ");
+        //             // write.write(it3.next().book_id + " ");
+        //         }
+        //         writer.write(str.toString().substring(0, str.length()-1 + "\n"));
+        //     }
+        // }catch(IOException e){
+        //     System.out.println("Exception");
+        // }
     }
 }
