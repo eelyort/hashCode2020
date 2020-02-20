@@ -7,7 +7,6 @@ public class Library {
     int numBooks;
     int numDays;
     int booksPerDay;
-    PriorityQueue<Book> pQueue;
     long lastVal;
     public Library(int libID, Book[] books, int nB, int nD, int bPD){
         id = libID;
@@ -17,7 +16,6 @@ public class Library {
         for (int i = 0; i < books.length; i++) {
             bookSet.add(books[i]);
         }
-        pQueue = new PriorityQueue<Integer>();
         lastVal = 0;
     }
 
@@ -39,7 +37,7 @@ public class Library {
     {
         time-=numDays;
         int num = time*booksPerDay;
-        PriorityQueue<Integer> pq = SetPQ(bookSet);
+        PriorityQueue<Book> pq = SetPQ(bookSet);
         Set<Book> ret = new HashSet<Book>();
         for(int x = 0; x<num; x++)
         {
@@ -76,10 +74,10 @@ public class Library {
         return sum;
     }
     */
-    public PriorityQueue<Integer> SetPQ(Set<Book> book)
+    public PriorityQueue<Book> SetPQ(Set<Book> book)
     {
         Iterator<Integer> itr = book.Iterator();
-        PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
+        PriorityQueue<Book> pq = new PriorityQueue<Book>();
         while(itr.hasNext())
         {
             pq.add(itr.next());
@@ -100,5 +98,15 @@ public class Library {
     public int getBPD()
     {
         return booksPerDay;
+    }
+
+    public int getID()
+    {
+        return id;
+    }
+
+    public void toString()
+    {
+        System.out.println("LibID: " + id + "\nnumBooks: " + numbooks + "\nnumDays: " + numDays + "\nbooksPerDay: " + booksPerDay + "\nLastValue: " + lastVal);
     }
 }
