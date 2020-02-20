@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 
+
 public class Library {
     Set<Book> bookSet = new HashSet<Book>();
     int id;
@@ -22,7 +23,7 @@ public class Library {
     public void remove(Set<Book> book)
     {
         Set<Book> temp = book;
-        Iterator<Integer> itr = temp.Iterator();
+        Iterator<Book> itr = temp.iterator();
         while(itr.hasNext())
         {
             if(bookSet.contains(itr.next()))
@@ -30,7 +31,7 @@ public class Library {
                 bookSet.remove(itr.next());
             }
         }
-        lastVal = calTotalValue();
+        lastVal = calcTotalValue();
     }
 
     public Set<Book> score(int time)
@@ -49,7 +50,7 @@ public class Library {
 
     public long calcTotalValue()
     {
-        Iterator<Integer> itr = bookSet.Iterator();
+        Iterator<Book> itr = bookSet.iterator();
         long sum = 0;
         while(itr.hasNext())
         {
@@ -76,7 +77,7 @@ public class Library {
     */
     public PriorityQueue<Book> SetPQ(Set<Book> book)
     {
-        Iterator<Integer> itr = book.Iterator();
+        Iterator<Book> itr = book.iterator();
         PriorityQueue<Book> pq = new PriorityQueue<Book>();
         while(itr.hasNext())
         {
@@ -105,8 +106,9 @@ public class Library {
         return id;
     }
 
-    public void toString()
+    public String toString()
     {
-        System.out.println("LibID: " + id + "\nnumBooks: " + numbooks + "\nnumDays: " + numDays + "\nbooksPerDay: " + booksPerDay + "\nLastValue: " + lastVal);
+        String ret = "LibID: " + id + "\nnumBooks: " + numBooks + "\nnumDays: " + numDays + "\nbooksPerDay: " + booksPerDay + "\nLastValue: " + lastVal;
+        return ret;
     }
 }
