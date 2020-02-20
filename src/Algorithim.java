@@ -22,7 +22,7 @@ public class Algorithim {
 
         Book[] x = new Book[booktotal];
         String score_string = input_file.nextLine();
-        String score[] = data_string.split(" ", booktotal);
+        String score[] = score_string.split(" ", booktotal);
 
         // Reads through library information
         for (int i = 0; i < numlib; i++) {
