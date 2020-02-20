@@ -20,9 +20,6 @@ public class Library {
         pQueue = new PriorityQueue<Integer>();
         lastVal = 0;
     }
-    public Book[] getTopN(int n){
-
-    }
 
     public void remove(Set<Book> book)
     {
@@ -52,7 +49,6 @@ public class Library {
         return ret;
     }
 
-////
     public long calcTotalValue()
     {
         Iterator<Integer> itr = bookSet.Iterator();
@@ -64,6 +60,8 @@ public class Library {
         }
         return sum;
     }
+    //i forgot what this does lol
+    /*
     public int calcBookValues(Set<Book> book, int num)
     {
         PriorityQueue<Integer> pq = SetPQ(book);
@@ -77,7 +75,7 @@ public class Library {
         }
         return sum;
     }
-
+    */
     public PriorityQueue<Integer> SetPQ(Set<Book> book)
     {
         Iterator<Integer> itr = book.Iterator();
